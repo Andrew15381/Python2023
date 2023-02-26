@@ -10,4 +10,4 @@ args = parser.parse_args()
 if args.list:
     print(cowsay.list_cows())
 else:
-    cowsay.cowsay(args.message, cow=args.character)
+    print(cowsay.cowsay(args.message, cow=args.character))
