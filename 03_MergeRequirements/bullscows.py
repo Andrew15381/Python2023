@@ -24,20 +24,21 @@ def gameplay(ask, inform, words):
 
 if __name__ == '__main__':
     def ask(prompt, valid = None):
-        cow = random.choice(cowsay.list_cows())
         if valid is None:
-            print(cowsay.cowsay(prompt, cow=cow))
+            with open('cow.txt') as f:
+                print(cowsay.cowsay(prompt, cowfile=f.read()))
             return input()
         else:
             while True:
-                print(cowsay.cowsay(prompt, cow=cow))
+                with open('cow.txt') as f:
+                    print(cowsay.cowsay(prompt, cowfile=f.read()))
                 guess = input()
                 if guess in valid:
                     return guess
 
     def inform(format_string, bulls, cows):
-        cow = random.choice(cowsay.list_cows())
-        print(cowsay.cowsay(format_string.format(bulls, cows), cow=cow))
+        with open('cow.txt') as f:
+            print(cowsay.cowsay(format_string.format(bulls, cows), cowfile=f.read()))
 
     dict_path = sys.argv[1]
     secret_len = int(sys.argv[2]) if len(sys.argv) == 3 else 5
