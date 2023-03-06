@@ -24,6 +24,7 @@ class cmdline(cmd.Cmd):
         Similar to the cowsay command. Parameters are listed with their
         corresponding options in the cowsay command. Returns the resulting cowsay
         string
+        Example: cowsay "Hello, world!" default xx "  "
         """
         names, defaults = ['cow', 'eyes', 'tongue'], ['default', 'oo', '  ']
         args = shlex.split(arg)
@@ -35,6 +36,7 @@ class cmdline(cmd.Cmd):
         Similar to the cowthink command. Parameters are listed with their
         corresponding options in the cowthink command. Returns the resulting
         cowthink string
+        Example: cowthink "Hello, world!" default xx "  "
         """
         names, defaults = ['cow', 'eyes', 'tongue'], ['default', 'oo', '  ']
         args = shlex.split(arg)
