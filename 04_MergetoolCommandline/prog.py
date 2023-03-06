@@ -2,6 +2,9 @@ import cmd
 import shlex
 import cowsay
 
+custom_eyes = ['xx', 'XX', 'oo', '..', 'x x', 'X X', 'o o', '. .']
+custom_tongue = ['__', '..', '==']
+
 class cmdline(cmd.Cmd):
     def do_list_cows(self, arg):
         """
@@ -44,13 +47,24 @@ class cmdline(cmd.Cmd):
         args = dict(list(zip(names, defaults)))
         print(cowsay.cowthink(message=message, **args))
     def complete_list_cows(self, prefix, line, start, end):
-        pass
-    def complete_make_bubble(self, prefix, line, start, end):
-        pass
+        if not prefix:
+            return ['~']
     def complete_cowsay(self, prefix, line, start, end):
-        pass
+        s = shlex.split(line)
+        if len(s) == 3:
+            return [i for i in cowsay.list_cows() if i.startswith(prefix)]
+        elif len(s) == 4:
+            return [i for i in custom_eyes if i.startswith(prefix)]
+        elif len(s) == 5:
+            return [i for i in custom_tongue if i.startswith(prefix)]
     def complete_cowthink(self, prefix, line, start, end):
-        pass
+        s = shlex.split(line)
+        if len(s) == 3:
+            return [i for i in cowsay.list_cows() if i.startswith(prefix)]
+        elif len(s) == 4:
+            return [i for i in custom_eyes if i.startswith(prefix)]
+        elif len(s) == 5:
+            return [i for i in custom_tongue if i.startswith(prefix)]
 
 if __name__ == '__main__':
     cmdline().cmdloop()
