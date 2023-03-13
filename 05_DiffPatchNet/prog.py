@@ -24,6 +24,12 @@ async def chat(reader, writer):
                 elif cmd[0] == 'cows':
                     cs = [c[0] for c in clients.values()]
                     await clients[me][1].put(', '.join([c for c in cowsay.list_cows() if c not in cs]))
+                elif cmd[0] == 'login':
+                    if cmd[1] not in [c[0] for c in clients.values()] and cmd[1] in cowsay.list_cows():
+                        clients[me][0] = cmd[1]
+                        await clients[me][1].put('Succesful login')
+                    else:
+                        await clients[me][1].put('Failed to login')
                 #for out in clients.values():
                 #    if out is not clients[me]:
                 #        await out[1].put(f"{me} {q.result().decode().strip()}")
