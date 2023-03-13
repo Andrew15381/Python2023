@@ -30,6 +30,14 @@ async def chat(reader, writer):
                         await clients[me][1].put('Succesful login')
                     else:
                         await clients[me][1].put('Failed to login')
+                elif cmd[0] == 'say':
+                    if cmd[1] in [c[0] for c in clients.values()] and clients[me][0]:
+                        for c in clients:
+                            if clients[c][0] == cmd[1]:
+                                break
+                        await clients[c][1].put(cmd[2])
+                    else:
+                        await clients[me][1].put('Login to say')
                 #for out in clients.values():
                 #    if out is not clients[me]:
                 #        await out[1].put(f"{me} {q.result().decode().strip()}")
