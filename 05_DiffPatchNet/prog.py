@@ -39,7 +39,7 @@ async def chat(reader, writer):
                         for c in clients:
                             if clients[c][0] == cmd[1]:
                                 break
-                        await clients[c][1].put(cmd[2])
+                        await clients[c][1].put(cowsay.cowsay(cmd[2], cow=clients[me][0]))
                     else:
                         await clients[me][1].put('Login to say')
                 elif cmd[0] == 'yield':
@@ -48,7 +48,7 @@ async def chat(reader, writer):
                     if clients[me][0]:
                         for out in clients.values():
                             if out is not clients[me] and out[0]:
-                                await out[1].put(cmd[1])
+                                await out[1].put(cowsay.cowsay(cmd[1], cow=clients[me][0]))
                 elif cmd[0] == 'quit':
                     break
                 else:
