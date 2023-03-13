@@ -43,6 +43,8 @@ async def chat(reader, writer):
                         for out in clients.values():
                             if out is not clients[me] and out[0]:
                                 await out[1].put(cmd[1])
+                elif cmd[0] == 'quit':
+                    break
             elif q is receive:
                 receive = asyncio.create_task(clients[me][1].get())
                 writer.write(f"{q.result()}\n".encode())
