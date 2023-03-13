@@ -20,7 +20,10 @@ async def chat(reader, writer):
                 if not cmd:
                     continue
                 if cmd[0] == 'who':
-                    await clients[me][1].put(''.join([c[0] for c in clients.values()]))
+                    await clients[me][1].put(', '.join([c[0] for c in clients.values()]))
+                elif cmd[0] == 'cows':
+                    cs = [c[0] for c in clients.values()]
+                    await clients[me][1].put(', '.join([c for c in cowsay.list_cows() if c not in cs]))
                 #for out in clients.values():
                 #    if out is not clients[me]:
                 #        await out[1].put(f"{me} {q.result().decode().strip()}")
