@@ -38,9 +38,11 @@ async def chat(reader, writer):
                         await clients[c][1].put(cmd[2])
                     else:
                         await clients[me][1].put('Login to say')
-                #for out in clients.values():
-                #    if out is not clients[me]:
-                #        await out[1].put(f"{me} {q.result().decode().strip()}")
+                elif cmd[0] == 'yield':
+                    if clients[me][0]:
+                        for out in clients.values():
+                            if out is not clients[me] and out[0]:
+                                await out[1].put(cmd[1])
             elif q is receive:
                 receive = asyncio.create_task(clients[me][1].get())
                 writer.write(f"{q.result()}\n".encode())
