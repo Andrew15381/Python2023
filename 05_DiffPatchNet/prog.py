@@ -25,12 +25,16 @@ async def chat(reader, writer):
                     cs = [c[0] for c in clients.values()]
                     await clients[me][1].put(', '.join([c for c in cowsay.list_cows() if c not in cs]))
                 elif cmd[0] == 'login':
+                    if len(cmd) != 2:
+                        break
                     if cmd[1] not in [c[0] for c in clients.values()] and cmd[1] in cowsay.list_cows():
                         clients[me][0] = cmd[1]
                         await clients[me][1].put('Succesful login')
                     else:
                         await clients[me][1].put('Failed to login')
                 elif cmd[0] == 'say':
+                    if len(cmd) != 3:
+                        break
                     if cmd[1] in [c[0] for c in clients.values()] and clients[me][0]:
                         for c in clients:
                             if clients[c][0] == cmd[1]:
@@ -39,12 +43,16 @@ async def chat(reader, writer):
                     else:
                         await clients[me][1].put('Login to say')
                 elif cmd[0] == 'yield':
+                    if len(cmd) != 2:
+                        break
                     if clients[me][0]:
                         for out in clients.values():
                             if out is not clients[me] and out[0]:
                                 await out[1].put(cmd[1])
                 elif cmd[0] == 'quit':
                     break
+                else:
+                    await clients[me][1].put('Unknown command')
             elif q is receive:
                 receive = asyncio.create_task(clients[me][1].get())
                 writer.write(f"{q.result()}\n".encode())
